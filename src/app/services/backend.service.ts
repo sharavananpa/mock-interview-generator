@@ -16,7 +16,7 @@ export class BackendService {
   readonly loading$ = this._loading.asObservable();
 
   constructor(private http: HttpClient) { }
-  private url = "http://localhost:8080/mock";
+  private url = "https://mock-interview-generator-backend-1745849879493.azurewebsites.net/mock";
 
   getMockInterview(requestPayload: RequestPayload): Observable<ResponsePayload> {
     return this.http.post<ResponsePayload>(this.url, requestPayload);
