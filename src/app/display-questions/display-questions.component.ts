@@ -21,7 +21,7 @@ export class DisplayQuestionsComponent {
       if (res == null) {
         this.data = {
           text: "# What are you doing here?\n Go to the home page and choose the topics you like.\n\n *Go! Go! Go!!!*",
-          citationSources: undefined
+          citationSources: null
         };
       } else {
         this.data = res;

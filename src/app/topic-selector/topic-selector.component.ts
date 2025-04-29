@@ -30,7 +30,7 @@ export class TopicSelectorComponent {
 
   private responsePayload: ResponsePayload = {
     text: "Can't connect to backend server!",
-    citationSources: [],
+    citationSources: null,
   };
 
   coreCSControls: Array<string> = [

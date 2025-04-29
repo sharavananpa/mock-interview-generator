@@ -1,4 +1,4 @@
 export interface ResponsePayload {
     text: string;
-    citationSources?: Array<string>;
+    citationSources: Array<string> | null;
 }

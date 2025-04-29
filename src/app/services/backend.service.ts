@@ -39,7 +39,7 @@ export class BackendService {
         console.log("Something went wrong!")
         let updatedData: ResponsePayload = {
           text: "# Something went wrong!\n Try again later...\n Or try again immediately...\n\n *I'll leave that up to you!*",
-          citationSources: undefined
+          citationSources: null
         }
         this._responsePayload.next(updatedData);
       }
