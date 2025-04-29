@@ -1,9 +1,0 @@
-@if (loading || data == null) {
-    <div class="spinner">
-        <mat-spinner></mat-spinner>
-    </div>
-} @else {
-    <div class="questions">
-        <markdown [data]="data.text"></markdown>
-    </div>
-}
