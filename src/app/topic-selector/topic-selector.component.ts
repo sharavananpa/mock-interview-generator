@@ -1,6 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { UpperCasePipe } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -10,11 +17,25 @@ import { BackendService } from '../services/backend.service';
 import { RequestPayload } from '../interfaces/request-payload';
 import { ResponsePayload } from '../interfaces/response-payload';
 
+function atLeastOneSelectedValidator(): ValidatorFn {
+  return (formGroup: AbstractControl): ValidationErrors | null => {
+    const hasOne = Object.values((formGroup as FormGroup).controls).some(
+      (control) => control.value === true
+    );
+    return hasOne ? null : { atLeastOne: true };
+  };
+}
+
 @Component({
   selector: 'app-topic-selector',
-  imports: [ReactiveFormsModule, UpperCasePipe, MatButtonModule, MatProgressSpinnerModule],
+  imports: [
+    ReactiveFormsModule,
+    UpperCasePipe,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './topic-selector.component.html',
-  styleUrl: './topic-selector.component.scss'
+  styleUrl: './topic-selector.component.scss',
 })
 export class TopicSelectorComponent {
   private backendService = inject(BackendService);
@@ -45,17 +66,20 @@ export class TopicSelectorComponent {
     'OOPS',
   ];
 
-  coreCSForm = new FormGroup({
-    Java: new FormControl(false),
-    JavaScript: new FormControl(false),
-    Python: new FormControl(false),
-    'C/C++': new FormControl(false),
-    SQL: new FormControl(false),
-    'Computer Network': new FormControl(false),
-    Database: new FormControl(false),
-    'Operating System': new FormControl(false),
-    OOPS: new FormControl(false),
-  });
+  coreCSForm = new FormGroup(
+    {
+      Java: new FormControl(false),
+      JavaScript: new FormControl(false),
+      Python: new FormControl(false),
+      'C/C++': new FormControl(false),
+      SQL: new FormControl(false),
+      'Computer Network': new FormControl(false),
+      Database: new FormControl(false),
+      'Operating System': new FormControl(false),
+      OOPS: new FormControl(false),
+    },
+    { validators: atLeastOneSelectedValidator() }
+  );
 
   problemSolvingControls: Array<string> = [
     'Array',
@@ -73,21 +97,24 @@ export class TopicSelectorComponent {
     'Graph Algorithms',
   ];
 
-  problemSolvingForm = new FormGroup({
-    Array: new FormControl(false),
-    'Linked List': new FormControl(false),
-    Stack: new FormControl(false),
-    Queue: new FormControl(false),
-    Tree: new FormControl(false),
-    Graph: new FormControl(false),
-    'Hash Maps': new FormControl(false),
-    Sorting: new FormControl(false),
-    Searching: new FormControl(false),
-    Greedy: new FormControl(false),
-    'Recursion / Backtracking': new FormControl(false),
-    'Dynamic Programming': new FormControl(false),
-    'Graph Algorithms': new FormControl(false),
-  });
+  problemSolvingForm = new FormGroup(
+    {
+      Array: new FormControl(false),
+      'Linked List': new FormControl(false),
+      Stack: new FormControl(false),
+      Queue: new FormControl(false),
+      Tree: new FormControl(false),
+      Graph: new FormControl(false),
+      'Hash Maps': new FormControl(false),
+      Sorting: new FormControl(false),
+      Searching: new FormControl(false),
+      Greedy: new FormControl(false),
+      'Recursion / Backtracking': new FormControl(false),
+      'Dynamic Programming': new FormControl(false),
+      'Graph Algorithms': new FormControl(false),
+    },
+    { validators: atLeastOneSelectedValidator() }
+  );
 
   behavioralControls: Array<string> = [
     'Leadership / Ownership / Initiative',
@@ -97,17 +124,29 @@ export class TopicSelectorComponent {
     'Ethical / Moral Conflict',
   ];
 
-  behavioralForm = new FormGroup({
-    'Leadership / Ownership / Initiative': new FormControl(false),
-    'Teamwork / Conflict Resolution': new FormControl(false),
-    'Failure / Resilience': new FormControl(false),
-    'Influencing / Persuasion': new FormControl(false),
-    'Ethical / Moral Conflict': new FormControl(false),
-  });
+  behavioralForm = new FormGroup(
+    {
+      'Leadership / Ownership / Initiative': new FormControl(false),
+      'Teamwork / Conflict Resolution': new FormControl(false),
+      'Failure / Resilience': new FormControl(false),
+      'Influencing / Persuasion': new FormControl(false),
+      'Ethical / Moral Conflict': new FormControl(false),
+    },
+    { validators: atLeastOneSelectedValidator() }
+  );
 
   customizationControl = new FormControl('Keep it concise.');
 
   submitForm() {
+    if (
+      this.coreCSForm.invalid ||
+      this.problemSolvingForm.invalid ||
+      this.behavioralForm.invalid
+    ) {
+      console.log('Invalid form!');
+      return;
+    }
+
     let requestPayload: RequestPayload = {
       prompt: '',
       coreCS: [],
@@ -115,7 +154,11 @@ export class TopicSelectorComponent {
       behavioral: [],
     };
 
-    requestPayload.prompt = this.customizationControl.value;
+    if (this.customizationControl.value?.trim() === "") {
+      requestPayload.prompt = "Generate quesitons for a 90 minute interview.";
+    } else {
+      requestPayload.prompt = this.customizationControl.value;
+    }
 
     for (const item of this.coreCSControls) {
       if (this.coreCSForm.get(item)?.value) {

@@ -64,7 +64,7 @@
 </div>
 
 <div class="button">
-  <button (click)="submitForm()" mat-flat-button [hidden]="loading">
+  <button (click)="submitForm()" mat-flat-button [hidden]="loading" [disabled]="coreCSForm.invalid || problemSolvingForm.invalid || behavioralForm.invalid">
     GENERATE
   </button>
   @if (loading) {
