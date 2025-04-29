@@ -1,9 +1,13 @@
 import { Routes } from '@angular/router';
-import { DisplayQuestionsComponent } from './display-questions/display-questions.component';
 
 export const routes: Routes = [
     {
+        path: "",
+        loadComponent: () => import("./topic-selector/topic-selector.component").then(m => m.TopicSelectorComponent),
+        pathMatch: "full"
+    },
+    {
         path: "result",
-        component: DisplayQuestionsComponent
+        loadComponent: () => import("./display-questions/display-questions.component").then(m => m.DisplayQuestionsComponent)
     }
 ];

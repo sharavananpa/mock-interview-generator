@@ -1,30 +1,46 @@
-.topic-selector {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
+:host {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 100svh;
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
+header {
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid black;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
 }
 
-h1 {
-    text-align: center;
+footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-top: 2px solid black;
+  border-radius: 2rem;
+  margin-top: 2rem;
+  padding: 1rem;
 }
 
-.button {
-    display: flex;
-    justify-content: center;
+.title {
+  display: inline-block;
+  text-align: center;
+  border-bottom: 2px solid var(--mat-sys-primary);
+  margin: 1rem;
 }
 
-.customization {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin: 2rem 40%;
+.title:hover {
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
 }
 
-input {
-    margin: 5px;
+header .active-link {
+  border-bottom: 2px solid transparent;
+}
+
+.router-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
 }

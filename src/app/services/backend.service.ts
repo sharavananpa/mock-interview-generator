@@ -26,7 +26,7 @@ export class BackendService {
     this._loading.next(true);
     this.getMockInterview(requestPayload).subscribe(res => {
       let updatedData: ResponsePayload = {
-        text: res.text.replace(/\n/g, '  \n'),
+        text: res.text.replace(/\n/g, '<br>'),
         citationSources: res.citationSources
       };
       this._responsePayload.next(updatedData);

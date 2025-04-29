@@ -1,0 +1,29 @@
+.topic-selector {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    margin: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 2rem;
+}
+
+.customization {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 2rem 40%;
+}
+
+input {
+    margin: 5px;
+}

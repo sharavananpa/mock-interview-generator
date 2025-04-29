@@ -1,77 +1,25 @@
-<h1>Generate Mock Interviews</h1>
-
-<div class="topic-selector">
-  <div class="topic">
-    <h2>Core CS</h2>
-    <form class="form" [formGroup]="coreCSForm">
-      @for (control of coreCSControls; track $index) {
-      <div class="formElement">
-        <input
-          type="checkbox"
-          name="{{ control }}"
-          id="{{ control }}"
-          formControlName="{{ control }}"
-        />
-        <label for="{{ control }}">{{ control | uppercase }}</label>
-      </div>
-      }
-    </form>
-  </div>
-
-  <div class="topic">
-    <h2>Problem Solving</h2>
-    <form class="form" [formGroup]="problemSolvingForm">
-      @for (control of problemSolvingControls; track $index) {
-      <div class="formElement">
-        <input
-          type="checkbox"
-          name="{{ control }}"
-          id="{{ control }}"
-          formControlName="{{ control }}"
-        />
-        <label for="{{ control }}">{{ control | uppercase }}</label>
-      </div>
-      }
-    </form>
-  </div>
-
-  <div class="topic">
-    <h2>Behavioral</h2>
-    <form class="form" [formGroup]="behavioralForm">
-      @for (control of behavioralControls; track $index) {
-      <div class="formElement">
-        <input
-          type="checkbox"
-          name="{{ control }}"
-          id="{{ control }}"
-          formControlName="{{ control }}"
-        />
-        <label for="{{ control }}">{{ control | uppercase }}</label>
-      </div>
-      }
-    </form>
-  </div>
-</div>
-
-<div class="customization">
-  <label style="text-align: center" for="customization"
-    >Additional Prompt</label
+<header>
+  <h1
+    class="title"
+    routerLink="/"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{ exact: true }"
   >
-  <input
-    type="text"
-    name="customization"
-    id="customization"
-    [formControl]="customizationControl"
-  />
-</div>
+    Generate Mock Interviews
+  </h1>
+</header>
 
-<div class="button">
-  <button (click)="submitForm()" mat-flat-button [hidden]="loading">
-    GENERATE
-  </button>
-  @if (loading) {
-    <mat-spinner [diameter]="40"></mat-spinner>
-  }
-</div>
+<main class="router-content">
+  <router-outlet />
+</main>
 
-<router-outlet />
+<footer>
+  <p>No pixels were harmed in the making of this site.</p>
+  <p>
+    ©
+    <a href="http://sharavananpa.dev" target="_blank" rel="noopener noreferrer"
+      >sharavananpa</a
+    >
+    ({{ date }})
+  </p>
+</footer>
