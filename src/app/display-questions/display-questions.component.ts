@@ -13,11 +13,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class DisplayQuestionsComponent {
   private backendService = inject(BackendService);
   data: ResponsePayload | null = null;
+
   loading: boolean = false;
 
   ngOnInit() {
     this.backendService.responsePayload$.subscribe((res) => {
-      this.data = res;
+      if (res == null) {
+        this.data = {
+          text: "# What are you doing here?\n Go to the home page and choose the topics you like.\n\n *Go! Go! Go!!!*",
+          citationSources: undefined
+        };
+      } else {
+        this.data = res;
+      }
     });
     this.backendService.loading$.subscribe((state) => {
       this.loading = state;
