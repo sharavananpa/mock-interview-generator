@@ -1,14 +1,18 @@
 .questions {
-    margin: 2rem auto;
-    width: 70%;
-    display: block;
-    border: 3px solid black;
-    border-radius: 2rem;
-    padding: 4rem;
+  margin: 2rem auto;
+  width: 70%;
+  display: block;
+  border: 3px solid black;
+  border-radius: 2rem;
+  padding: 4rem;
 }
 
 .spinner {
-    display: flex;
-    justify-content: center;
-    margin-top: 7rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 7rem;
+}
+
+::ng-deep markdown p {
+  margin-bottom: 1rem;
 }
